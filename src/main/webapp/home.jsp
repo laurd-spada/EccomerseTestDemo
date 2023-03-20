@@ -16,13 +16,25 @@ h3
 </head>
 <body>
 <div style="color: white; text-align: center; font-size: 30px;">Home <i class="fa fa-institution"></i></div>
-
+<%
+String msg = request.getParameter("msg");
+    if("added".equals(msg))
+    {
+%>
 <h3 class="alert">Product added successfully!</h3>
-
+<% } %>
+<%
+    if("exist".equals(msg))
+    {
+%>
 <h3 class="alert">Product already exist in you cart! Quantity  increased!</h3>
-
-<h3 class="alert">Password change successfully!</h3>
-
+<% } %>
+<%
+    if("invalid".equals(msg))
+    {
+%>
+<h3 class="alert">Something went wrong!</h3>
+<% } %>
 <table>
         <thead>
           <tr>
@@ -34,15 +46,26 @@ h3
           </tr>
         </thead>
         <tbody>
-
+<%
+try {
+    Connection connection = ConnectionProvider.getCon();
+    Statement  statement = connection.createStatement();
+    ResultSet resultSet = statement.executeQuery("select  *from product where active='yes'");
+    while (resultSet.next()){ // repeating and rendering a table row to display items
+%>
           <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td><i class="fa fa-inr"></i> </i></td>
-            <td><a href="">Add to cart <i class='fas fa-cart-plus'></i></a></td>
+            <td><%=resultSet.getString(1)%></td>
+            <td><%=resultSet.getString(2)%></td>
+            <td><%=resultSet.getString(3)%></td>
+            <td><i class="fa fa-inr"></i> <%=resultSet.getString(4)%></td>
+            <td><a href="addToCartAction.jsp?id=<%=resultSet.getString(1)%>">Add to cart <i class='fas fa-cart-plus'></i></a></td>
           </tr>
-
+<%
+        }
+    } catch (Exception e){
+    System.out.println(e);
+}
+%>
         </tbody>
       </table>
       <br>
