@@ -18,7 +18,7 @@
             <a href="">Change Details <i class="fa fa-edit"></i></a>
             <a href="">Message Us <i class='fas fa-comment-alt'></i></a>
             <a href="">About <i class="fa fa-address-book"></i></a>
-            <a href="">Logout <i class='fas fa-share-square'></i></a>
+            <a href="logout.jsp">Logout <i class='fas fa-share-square'></i></a>
             <div class="search-container">
              
                
